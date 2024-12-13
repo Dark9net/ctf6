@@ -9,6 +9,9 @@ const app = express();
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
 app.get('/include', (req, res) => {
     const page = req.query.page;
     const filePath = path.join(__dirname, 'pages', `${page}`);
@@ -18,6 +21,11 @@ app.get('/include', (req, res) => {
         res.status(500).send("File not found or an error occurred.");
     }
 });
+
+app.get('/categories', (req, res) => {
+    res.render('categories');
+});
+
 
 app.listen(port, () => {
     console.log('Server running on http://localhost:3000');
